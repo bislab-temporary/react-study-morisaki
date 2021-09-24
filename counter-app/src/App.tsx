@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Center } from "@chakra-ui/layout";
+import { Wrap } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 
 import Counter from "./Counter";
@@ -20,12 +20,12 @@ function App() {
   };
 
   return (
-    <Center>
+    <Wrap align="center" justify="center">
       {counters.map((counter) => counter)}
       <Button colorScheme="teal" borderRadius="50%" onClick={addCounter}>
         +
       </Button>
-    </Center>
+    </Wrap>
   );
 }
 
