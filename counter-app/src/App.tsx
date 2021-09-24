@@ -6,7 +6,7 @@ function App() {
   const [count, setCount] = useControllableState({ defaultValue: 0 });
 
   const decrementCount = () => {
-    setCount(count - 1);
+    setCount(Math.max(0, count - 1));
   };
 
   const incrementCount = () => {
