@@ -1,13 +1,14 @@
-import { Container } from "@chakra-ui/layout";
+import { Center, VStack, Text } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 
 function App() {
   return (
-    <Container maxW="xl" centerContent>
-      <Button colorScheme="blue" m={5}>
-        +1
-      </Button>
-    </Container>
+    <Center>
+      <VStack m={5}>
+        <Text>0</Text>
+        <Button colorScheme="blue">+1</Button>
+      </VStack>
+    </Center>
   );
 }
 
