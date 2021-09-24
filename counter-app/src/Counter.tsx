@@ -5,10 +5,12 @@ import { useControllableState } from "@chakra-ui/hooks";
 import { Editable, EditablePreview, EditableInput } from "@chakra-ui/editable";
 
 type Props = {
+  id: number;
   name: string;
+  removeCounter: (id: number) => void;
 };
 
-function Counter({ name }: Props) {
+function Counter({ id, name, removeCounter }: Props) {
   const [count, setCount] = useControllableState({ defaultValue: 0 });
 
   const decrementCount = () => {
@@ -35,6 +37,13 @@ function Counter({ name }: Props) {
             +1
           </Button>
         </ButtonGroup>
+        <Button
+          colorScheme="red"
+          borderRadius="50%"
+          onClick={() => removeCounter(id)}
+        >
+          -
+        </Button>
       </VStack>
     </WrapItem>
   );
