@@ -1,0 +1,11 @@
+version: '3'
+services:
+    node:
+        container_name: counter-app
+        image: node:16-alpine3.11
+        volumes:
+            - ./:/counter-app
+        working_dir: /counter-app
+        command: yarn start
+        ports:
+            - "3000:3000"
