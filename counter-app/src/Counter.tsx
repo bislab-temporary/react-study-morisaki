@@ -24,7 +24,7 @@ function Counter({ id, removeCounter }: Props) {
 
   return (
     <WrapItem>
-      <VStack m={5} p={5} borderRadius="md">
+      <VStack m={5} p={5} borderRadius="md" borderWidth={2}>
         <Editable defaultValue={"Counter " + (id + 1)}>
           <EditablePreview />
           <EditableInput />
