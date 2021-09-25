@@ -13,11 +13,13 @@ function Counter({ id, removeCounter }: Props) {
   const [count, setCount] = useControllableState({ defaultValue: 0 });
 
   const decrementCount = () => {
-    setCount(Math.max(0, count - 1));
+    if (count > 0) {
+      setCount((prevCount) => prevCount - 1);
+    }
   };
 
   const incrementCount = () => {
-    setCount(count + 1);
+    setCount((prevCount) => prevCount + 1);
   };
 
   return (
