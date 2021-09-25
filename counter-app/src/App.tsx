@@ -5,34 +5,26 @@ import { Button } from "@chakra-ui/button";
 
 import Counter from "./Counter";
 
-function App() {
-  const [counterNum, setCounterNum] = useState(1);
-  const [counters, setCounters] = useState([
-    { id: counterNum, name: "Counter " + counterNum },
-  ]);
+let globalCounter = 0;
 
-  // BUG: couterNum 1, 1, 2, 3, ....
+function App() {
+  const [counters, setCounters] = useState([globalCounter]);
+
   const addCounter = () => {
-    setCounterNum(counterNum + 1);
-    const counter = { id: counterNum, name: "Counter " + counterNum };
-    const newCounters = [...counters, counter];
+    globalCounter++;
+    const newCounters = [...counters, globalCounter];
     setCounters(newCounters);
   };
 
   const removeCounter = (id: number) => {
-    const newCounters = counters.filter((counter) => counter.id != id);
+    const newCounters = counters.filter((counter) => counter != id);
     setCounters(newCounters);
   };
 
   return (
     <Wrap align="center" justify="center">
       {counters.map((counter) => (
-        <Counter
-          key={counter.id}
-          id={counter.id}
-          name={counter.name}
-          removeCounter={removeCounter}
-        />
+        <Counter key={counter} id={counter} removeCounter={removeCounter} />
       ))}
       <Button colorScheme="teal" borderRadius="50%" onClick={addCounter}>
         +

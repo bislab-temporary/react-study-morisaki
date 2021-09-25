@@ -6,11 +6,10 @@ import { Editable, EditablePreview, EditableInput } from "@chakra-ui/editable";
 
 type Props = {
   id: number;
-  name: string;
   removeCounter: (id: number) => void;
 };
 
-function Counter({ id, name, removeCounter }: Props) {
+function Counter({ id, removeCounter }: Props) {
   const [count, setCount] = useControllableState({ defaultValue: 0 });
 
   const decrementCount = () => {
@@ -24,7 +23,7 @@ function Counter({ id, name, removeCounter }: Props) {
   return (
     <WrapItem>
       <VStack m={5} p={5} borderRadius="md">
-        <Editable defaultValue={name}>
+        <Editable defaultValue={"Counter " + (id + 1)}>
           <EditablePreview />
           <EditableInput />
         </Editable>
