@@ -8,7 +8,7 @@ import Counter from "./Counter";
 let globalCounter = 0;
 
 function App() {
-  const [counters, setCounters] = useState([globalCounter]);
+  const [counters, setCounters] = useState<number[]>([globalCounter]);
 
   const addCounter = () => {
     globalCounter++;
@@ -17,7 +17,7 @@ function App() {
   };
 
   const removeCounter = (id: number) => {
-    const newCounters = counters.filter((counter) => counter != id);
+    const newCounters = counters.filter((counter) => counter !== id);
     setCounters(newCounters);
   };
 
