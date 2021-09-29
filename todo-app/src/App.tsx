@@ -1,4 +1,4 @@
-import { Container } from "@chakra-ui/layout";
+import { Container, Text } from "@chakra-ui/layout";
 import { Center } from "@chakra-ui/layout";
 
 const App = () => {
@@ -10,13 +10,16 @@ const App = () => {
     { text: "Task1" },
     { text: "Task2" },
     { text: "Task3" },
+    {
+      text: "LongTextLongTextLongTextLongTextLongTextLongTextLongTextLongTextLongTextLongText",
+    },
   ];
 
   return (
     <Container maxW="xl" centerContent>
       {tasks.map((task: Task) => (
         <Center p={3} m={1} w="100%" bg="blue.100">
-          {task.text}
+          <Text isTruncated>{task.text}</Text>
         </Center>
       ))}
     </Container>
