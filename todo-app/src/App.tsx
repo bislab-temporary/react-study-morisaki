@@ -23,8 +23,6 @@ const App = () => {
     setTasks(newTasks);
   };
 
-  console.table(tasks); // DEBUG
-
   return (
     <Container maxW="xl" centerContent>
       {tasks.map((task: iTask) => (
