@@ -1,6 +1,6 @@
 import { CheckIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
-import { useRef } from "react";
+import { useState } from "react";
 import { Task } from "./App";
 
 type Props = {
@@ -9,10 +9,10 @@ type Props = {
 };
 
 const InputNewTaskField = ({ tasks, setTasks }: Props) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [text, setText] = useState<string>("");
 
   const validInputText = (): boolean => {
-    return inputRef.current?.value !== "";
+    return text !== "";
   };
 
   const addTask = (text: string) => {
@@ -21,11 +21,13 @@ const InputNewTaskField = ({ tasks, setTasks }: Props) => {
     setTasks(newTasks);
   };
 
-  const resetField = () => {};
+  const resetField = () => {
+    setText("");
+  };
 
   const onSubmitTask = () => {
     if (validInputText()) {
-      addTask(inputRef.current?.value!);
+      addTask(text);
       resetField();
     }
   };
@@ -34,7 +36,10 @@ const InputNewTaskField = ({ tasks, setTasks }: Props) => {
       <Input
         borderRadius="0"
         placeholder="Input new task"
-        ref={inputRef}
+        value={text}
+        onChange={(e) => {
+          setText(e.target.value);
+        }}
         onKeyPress={(e) => {
           if (e.key === "Enter") {
             onSubmitTask();
