@@ -1,0 +1,14 @@
+version: "3"
+services:
+  node:
+    container_name: todo-app
+    image: node:16-alpine3.11
+    volumes:
+      - ./:/todo-app
+    working_dir: /todo-app
+    command: sh -c "yarn install && yarn start"
+    ports:
+      - "3000:3000"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    tty: true
