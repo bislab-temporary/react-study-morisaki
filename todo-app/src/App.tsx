@@ -15,12 +15,20 @@ const App = () => {
     { create: new Date(2021, 9, 30, 3, 0, 0).getTime(), text: "Task3" },
   ]);
 
+  const updateTasks = (create: number, newText: string) => {
+    const newTask = { create: create, text: newText };
+    const newTasks = tasks.map((task: iTask) =>
+      task.create === create ? newTask : task
+    );
+    setTasks(newTasks);
+  };
+
   console.table(tasks); // DEBUG
 
   return (
     <Container maxW="xl" centerContent>
       {tasks.map((task: iTask) => (
-        <Task key={task.create} task={task} />
+        <Task key={task.create} task={task} updateTasks={updateTasks} />
       ))}
       <InputNewTaskField tasks={tasks} setTasks={setTasks} />
     </Container>

@@ -11,9 +11,10 @@ import { iTask } from "./App";
 
 type Props = {
   task: iTask;
+  updateTasks: (create: number, newText: string) => void;
 };
 
-const Task = ({ task }: Props) => {
+const Task = ({ task, updateTasks }: Props) => {
   const EditableControls = () => {
     const {
       isEditing,
@@ -51,6 +52,10 @@ const Task = ({ task }: Props) => {
     );
   };
 
+  const onSubmit = (newText: string) => {
+    updateTasks(task.create, newText);
+  };
+
   return (
     <Editable
       p={3}
@@ -59,6 +64,7 @@ const Task = ({ task }: Props) => {
       bg="blue.100"
       defaultValue={task.text}
       isPreviewFocusable={false}
+      onSubmit={(nextValue) => onSubmit(nextValue)}
     >
       <Flex>
         <EditablePreview isTruncated />
