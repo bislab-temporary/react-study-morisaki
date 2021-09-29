@@ -1,4 +1,5 @@
-import { Input } from "@chakra-ui/input";
+import { CheckIcon } from "@chakra-ui/icons";
+import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { Container, Text } from "@chakra-ui/layout";
 import { Center } from "@chakra-ui/layout";
 
@@ -23,7 +24,13 @@ const App = () => {
           <Text isTruncated>{task.text}</Text>
         </Center>
       ))}
-      <Input p={3} m={1} borderRadius="0" placeholder="Input new task" />
+      <InputGroup m={1}>
+        <Input borderRadius="0" placeholder="Input new task" />
+        <InputRightElement
+          children={<CheckIcon color="green.500" />}
+          _hover={{ bg: "green.100", borderRadius: "50%" }}
+        />
+      </InputGroup>
     </Container>
   );
 };
