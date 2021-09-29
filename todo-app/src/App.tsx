@@ -20,7 +20,7 @@ const App = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const addTask = () => {
+  const onSubmitTask = () => {
     alert(inputRef.current?.value);
   };
 
@@ -38,14 +38,14 @@ const App = () => {
           ref={inputRef}
           onKeyPress={(e) => {
             if (e.key === "Enter") {
-              addTask();
+              onSubmitTask();
             }
           }}
         />
         <InputRightElement
           children={<CheckIcon color="green.500" />}
           _hover={{ bg: "green.100", borderRadius: "50%" }}
-          onClick={addTask}
+          onClick={onSubmitTask}
         />
       </InputGroup>
     </Container>
