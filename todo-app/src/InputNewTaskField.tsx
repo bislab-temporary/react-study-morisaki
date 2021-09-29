@@ -16,7 +16,8 @@ const InputNewTaskField = ({ tasks, setTasks }: Props) => {
   };
 
   const addTask = (text: string) => {
-    const newTask = { text: text };
+    const now = Date.now();
+    const newTask = { create: now, text: text };
     const newTasks = [...tasks, newTask];
     setTasks(newTasks);
   };
