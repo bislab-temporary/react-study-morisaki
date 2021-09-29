@@ -17,6 +17,10 @@ const App = () => {
     },
   ];
 
+  const addTask = () => {
+    alert("called");
+  };
+
   return (
     <Container maxW="xl" centerContent>
       {tasks.map((task: Task) => (
@@ -25,10 +29,19 @@ const App = () => {
         </Center>
       ))}
       <InputGroup m={1}>
-        <Input borderRadius="0" placeholder="Input new task" />
+        <Input
+          borderRadius="0"
+          placeholder="Input new task"
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              addTask();
+            }
+          }}
+        />
         <InputRightElement
           children={<CheckIcon color="green.500" />}
           _hover={{ bg: "green.100", borderRadius: "50%" }}
+          onClick={addTask}
         />
       </InputGroup>
     </Container>
