@@ -2,21 +2,21 @@ import { CheckIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { Container, Text } from "@chakra-ui/layout";
 import { Center } from "@chakra-ui/layout";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const App = () => {
   interface Task {
     text: string;
   }
 
-  const tasks: Task[] = [
+  const [tasks, setTasks] = useState<Task[]>([
     { text: "Task1" },
     { text: "Task2" },
     { text: "Task3" },
     {
       text: "LongTextLongTextLongTextLongTextLongTextLongTextLongTextLongTextLongTextLongText",
     },
-  ];
+  ]);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -25,7 +25,9 @@ const App = () => {
   };
 
   const addTask = (text: string) => {
-    alert(text);
+    const newTask = { text: text };
+    const newTasks = [...tasks, newTask];
+    setTasks(newTasks);
   };
 
   const resetField = () => {};
