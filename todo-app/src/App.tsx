@@ -20,8 +20,21 @@ const App = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const validInputText = (): boolean => {
+    return inputRef.current?.value !== "";
+  };
+
+  const addTask = (text: string) => {
+    alert(text);
+  };
+
+  const resetField = () => {};
+
   const onSubmitTask = () => {
-    alert(inputRef.current?.value);
+    if (validInputText()) {
+      addTask(inputRef.current?.value!);
+      resetField();
+    }
   };
 
   return (
