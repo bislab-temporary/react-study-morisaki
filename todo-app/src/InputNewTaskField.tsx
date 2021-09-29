@@ -1,11 +1,11 @@
 import { CheckIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { useState } from "react";
-import { Task } from "./App";
+import { iTask } from "./App";
 
 type Props = {
-  tasks: Task[];
-  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+  tasks: iTask[];
+  setTasks: React.Dispatch<React.SetStateAction<iTask[]>>;
 };
 
 const InputNewTaskField = ({ tasks, setTasks }: Props) => {
