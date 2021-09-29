@@ -1,26 +1,26 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import { Container } from "@chakra-ui/layout";
+import { Center } from "@chakra-ui/layout";
 
-function App() {
+const App = () => {
+  interface Task {
+    text: string;
+  }
+
+  const tasks: Task[] = [
+    { text: "Task1" },
+    { text: "Task2" },
+    { text: "Task3" },
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container maxW="xl" centerContent>
+      {tasks.map((task: Task) => (
+        <Center p={3} m={1} w="100%" bg="blue.100">
+          {task.text}
+        </Center>
+      ))}
+    </Container>
   );
-}
+};
 
 export default App;
