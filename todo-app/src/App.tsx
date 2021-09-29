@@ -2,6 +2,7 @@ import { CheckIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { Container, Text } from "@chakra-ui/layout";
 import { Center } from "@chakra-ui/layout";
+import { useRef } from "react";
 
 const App = () => {
   interface Task {
@@ -17,8 +18,10 @@ const App = () => {
     },
   ];
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const addTask = () => {
-    alert("called");
+    alert(inputRef.current?.value);
   };
 
   return (
@@ -32,6 +35,7 @@ const App = () => {
         <Input
           borderRadius="0"
           placeholder="Input new task"
+          ref={inputRef}
           onKeyPress={(e) => {
             if (e.key === "Enter") {
               addTask();
