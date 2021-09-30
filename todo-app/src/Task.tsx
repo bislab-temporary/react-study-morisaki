@@ -7,6 +7,7 @@ import {
 } from "@chakra-ui/editable";
 import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
 import { Flex, Spacer } from "@chakra-ui/layout";
+import { Checkbox } from "@chakra-ui/react";
 import { iTask } from "./App";
 
 type Props = {
@@ -56,6 +57,10 @@ const Task = ({ task, updateTasks }: Props) => {
     updateTasks(task.create, task.isDone, newText);
   };
 
+  const toggleDone = () => {
+    updateTasks(task.create, !task.isDone, task.text);
+  };
+
   return (
     <Editable
       p={3}
@@ -67,6 +72,13 @@ const Task = ({ task, updateTasks }: Props) => {
       onSubmit={(nextValue) => onSubmit(nextValue)}
     >
       <Flex>
+        <Checkbox
+          mr={3}
+          size="lg"
+          borderColor="blackAlpha.500"
+          isChecked={task.isDone}
+          onChange={toggleDone}
+        ></Checkbox>
         <EditablePreview isTruncated />
         <EditableInput />
         <Spacer />
