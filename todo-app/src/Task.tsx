@@ -4,7 +4,7 @@ import {
   EditablePreview,
   useEditableControls,
 } from "@chakra-ui/editable";
-import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
+import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Flex, Spacer } from "@chakra-ui/layout";
 import { Checkbox } from "@chakra-ui/react";
 import { iTask } from "./App";
@@ -84,6 +84,13 @@ const Task = ({ task, updateTasks }: Props) => {
         <EditableInput />
         <Spacer />
         <EditableControls />
+        <IconButton
+          aria-label="delete icon"
+          size="sm"
+          ml="1em"
+          icon={<DeleteIcon />}
+          color="red.500"
+        />
       </Flex>
     </CustomEditable>
   );
