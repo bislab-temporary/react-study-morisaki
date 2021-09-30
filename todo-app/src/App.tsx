@@ -32,7 +32,7 @@ const App = () => {
     },
   ]);
 
-  const updateTasks = (create: number, isDone: boolean, newText: string) => {
+  const updateTask = (create: number, isDone: boolean, newText: string) => {
     const newTask = { create: create, isDone: isDone, text: newText };
     const newTasks = tasks.map((task: iTask) =>
       task.create === create ? newTask : task
@@ -56,7 +56,7 @@ const App = () => {
             <Task
               key={task.create}
               task={task}
-              updateTasks={updateTasks}
+              updateTask={updateTask}
               deleteTask={deleteTask}
             />
           )

@@ -12,11 +12,11 @@ import CustomEditable from "./CustomEditable";
 
 type Props = {
   task: iTask;
-  updateTasks: (create: number, isDone: boolean, newText: string) => void;
+  updateTask: (create: number, isDone: boolean, newText: string) => void;
   deleteTask: (create: number) => void;
 };
 
-const Task = ({ task, updateTasks, deleteTask }: Props) => {
+const Task = ({ task, updateTask, deleteTask }: Props) => {
   const EditableControls = () => {
     const {
       isEditing,
@@ -55,11 +55,11 @@ const Task = ({ task, updateTasks, deleteTask }: Props) => {
   };
 
   const onSubmit = (newText: string) => {
-    updateTasks(task.create, task.isDone, newText);
+    updateTask(task.create, task.isDone, newText);
   };
 
   const toggleDone = () => {
-    updateTasks(task.create, !task.isDone, task.text);
+    updateTask(task.create, !task.isDone, task.text);
   };
 
   const onClickDeleteButton = () => {
