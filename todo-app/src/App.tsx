@@ -40,6 +40,11 @@ const App = () => {
     setTasks(newTasks);
   };
 
+  const deleteTask = (create: number) => {
+    const newTasks = tasks.filter((task: iTask) => task.create !== create);
+    setTasks(newTasks);
+  };
+
   return (
     <Container maxW="xl" centerContent>
       <Checkbox mr="auto" isChecked={hideDone} onChange={setHideDone.toggle}>
@@ -48,7 +53,12 @@ const App = () => {
       {tasks.map(
         (task: iTask) =>
           !(hideDone && task.isDone) && (
-            <Task key={task.create} task={task} updateTasks={updateTasks} />
+            <Task
+              key={task.create}
+              task={task}
+              updateTasks={updateTasks}
+              deleteTask={deleteTask}
+            />
           )
       )}
       <InputNewTaskField tasks={tasks} setTasks={setTasks} />

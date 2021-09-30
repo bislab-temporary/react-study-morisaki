@@ -13,9 +13,10 @@ import CustomEditable from "./CustomEditable";
 type Props = {
   task: iTask;
   updateTasks: (create: number, isDone: boolean, newText: string) => void;
+  deleteTask: (create: number) => void;
 };
 
-const Task = ({ task, updateTasks }: Props) => {
+const Task = ({ task, updateTasks, deleteTask }: Props) => {
   const EditableControls = () => {
     const {
       isEditing,
@@ -61,6 +62,10 @@ const Task = ({ task, updateTasks }: Props) => {
     updateTasks(task.create, !task.isDone, task.text);
   };
 
+  const onClickDeleteButton = () => {
+    deleteTask(task.create);
+  };
+
   return (
     <CustomEditable
       p={3}
@@ -90,6 +95,7 @@ const Task = ({ task, updateTasks }: Props) => {
           ml="1em"
           icon={<DeleteIcon />}
           color="red.500"
+          onClick={onClickDeleteButton}
         />
       </Flex>
     </CustomEditable>
