@@ -61,16 +61,8 @@ const Task = ({ task, updateTasks }: Props) => {
     updateTasks(task.create, !task.isDone, task.text);
   };
 
-  return (
-    <Editable
-      p={3}
-      m={1}
-      w="100%"
-      bg="blue.100"
-      defaultValue={task.text}
-      isPreviewFocusable={false}
-      onSubmit={(nextValue) => onSubmit(nextValue)}
-    >
+  const TaskContents = () => {
+    return (
       <Flex>
         <Checkbox
           mr={3}
@@ -84,8 +76,40 @@ const Task = ({ task, updateTasks }: Props) => {
         <Spacer />
         <EditableControls />
       </Flex>
-    </Editable>
-  );
+    );
+  };
+
+  if (task.isDone) {
+    return (
+      <Editable
+        p={3}
+        m={1}
+        w="100%"
+        color="gray"
+        bg="blue.100"
+        defaultValue={task.text}
+        as="s"
+        isPreviewFocusable={false}
+        onSubmit={(nextValue) => onSubmit(nextValue)}
+      >
+        <TaskContents />
+      </Editable>
+    );
+  } else {
+    return (
+      <Editable
+        p={3}
+        m={1}
+        w="100%"
+        bg="blue.100"
+        defaultValue={task.text}
+        isPreviewFocusable={false}
+        onSubmit={(nextValue) => onSubmit(nextValue)}
+      >
+        <TaskContents />
+      </Editable>
+    );
+  }
 };
 
 export default Task;
