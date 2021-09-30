@@ -1,5 +1,4 @@
-import { Container, Text } from "@chakra-ui/layout";
-import { Center } from "@chakra-ui/layout";
+import { Center, Container, Text } from "@chakra-ui/layout";
 
 const App = () => {
   type Task = {
