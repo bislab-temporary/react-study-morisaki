@@ -1,3 +1,5 @@
+import { Checkbox } from "@chakra-ui/checkbox";
+import { useBoolean } from "@chakra-ui/hooks";
 import { Container } from "@chakra-ui/layout";
 import { useState } from "react";
 import InputNewTaskField from "./InputNewTaskField";
@@ -10,6 +12,8 @@ export interface iTask {
 }
 
 const App = () => {
+  const [hideDone, setHideDone] = useBoolean(false);
+
   const [tasks, setTasks] = useState<iTask[]>([
     {
       create: new Date(2021, 9, 30, 1, 0, 0).getTime(),
@@ -38,9 +42,15 @@ const App = () => {
 
   return (
     <Container maxW="xl" centerContent>
-      {tasks.map((task: iTask) => (
-        <Task key={task.create} task={task} updateTasks={updateTasks} />
-      ))}
+      <Checkbox mr="auto" isChecked={hideDone} onChange={setHideDone.toggle}>
+        Hide completed tasks
+      </Checkbox>
+      {tasks.map(
+        (task: iTask) =>
+          !(hideDone && task.isDone) && (
+            <Task key={task.create} task={task} updateTasks={updateTasks} />
+          )
+      )}
       <InputNewTaskField tasks={tasks} setTasks={setTasks} />
     </Container>
   );
