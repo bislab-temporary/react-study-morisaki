@@ -11,7 +11,7 @@ import { iTask } from "./App";
 
 type Props = {
   task: iTask;
-  updateTasks: (create: number, newText: string) => void;
+  updateTasks: (create: number, isDone: boolean, newText: string) => void;
 };
 
 const Task = ({ task, updateTasks }: Props) => {
@@ -53,7 +53,7 @@ const Task = ({ task, updateTasks }: Props) => {
   };
 
   const onSubmit = (newText: string) => {
-    updateTasks(task.create, newText);
+    updateTasks(task.create, task.isDone, newText);
   };
 
   return (
