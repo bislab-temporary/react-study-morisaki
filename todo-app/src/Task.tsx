@@ -1,6 +1,5 @@
 import { ButtonGroup, IconButton } from "@chakra-ui/button";
 import {
-  Editable,
   EditableInput,
   EditablePreview,
   useEditableControls,
@@ -9,6 +8,7 @@ import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
 import { Flex, Spacer } from "@chakra-ui/layout";
 import { Checkbox } from "@chakra-ui/react";
 import { iTask } from "./App";
+import CustomEditable from "./CustomEditable";
 
 type Props = {
   task: iTask;
@@ -79,37 +79,20 @@ const Task = ({ task, updateTasks }: Props) => {
     );
   };
 
-  if (task.isDone) {
-    return (
-      <Editable
-        p={3}
-        m={1}
-        w="100%"
-        color="gray"
-        bg="blue.100"
-        defaultValue={task.text}
-        as="s"
-        isPreviewFocusable={false}
-        onSubmit={(nextValue) => onSubmit(nextValue)}
-      >
-        <TaskContents />
-      </Editable>
-    );
-  } else {
-    return (
-      <Editable
-        p={3}
-        m={1}
-        w="100%"
-        bg="blue.100"
-        defaultValue={task.text}
-        isPreviewFocusable={false}
-        onSubmit={(nextValue) => onSubmit(nextValue)}
-      >
-        <TaskContents />
-      </Editable>
-    );
-  }
+  return (
+    <CustomEditable
+      p={3}
+      m={1}
+      w="100%"
+      bg="blue.100"
+      defaultValue={task.text}
+      isDone={task.isDone}
+      isPreviewFocusable={false}
+      onSubmit={(nextValue) => onSubmit(nextValue)}
+    >
+      <TaskContents />
+    </CustomEditable>
+  );
 };
 
 export default Task;
