@@ -8,7 +8,7 @@ import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Flex, Spacer } from "@chakra-ui/layout";
 import { Checkbox } from "@chakra-ui/react";
 import { TaskType } from "../types/TaskType";
-import CustomEditable from "./CustomEditable";
+import TaskItemCustomEditable from "./TaskItemCustomEditable";
 
 type Props = {
   task: TaskType;
@@ -67,7 +67,7 @@ const TaskItem = ({ task, updateTask, deleteTask }: Props) => {
   };
 
   return (
-    <CustomEditable
+    <TaskItemCustomEditable
       p={3}
       m={1}
       w="100%"
@@ -98,7 +98,7 @@ const TaskItem = ({ task, updateTask, deleteTask }: Props) => {
           onClick={onClickDeleteButton}
         />
       </Flex>
-    </CustomEditable>
+    </TaskItemCustomEditable>
   );
 };
 
