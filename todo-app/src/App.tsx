@@ -2,8 +2,8 @@ import { Checkbox } from "@chakra-ui/checkbox";
 import { useBoolean } from "@chakra-ui/hooks";
 import { Container } from "@chakra-ui/layout";
 import { useState } from "react";
-import InputNewTaskField from "./InputNewTaskField";
-import Task from "./Task";
+import InputNewTaskField from "./components/InputNewTaskField";
+import Task from "./components/Task";
 import { TaskType } from "./types/TaskType";
 
 const App = () => {
