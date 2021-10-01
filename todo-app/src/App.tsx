@@ -1,7 +1,7 @@
-import { Checkbox } from "@chakra-ui/checkbox";
 import { useBoolean } from "@chakra-ui/hooks";
 import { Container } from "@chakra-ui/layout";
 import { useState } from "react";
+import HideCompletedTasksCheckbox from "./components/HideCompletedTasksCheckbox";
 import InputNewTaskField from "./components/InputNewTaskField";
 import Task from "./components/Task";
 import { TaskType } from "./types/TaskType";
@@ -44,9 +44,10 @@ const App = () => {
 
   return (
     <Container maxW="xl" centerContent>
-      <Checkbox mr="auto" isChecked={hideDone} onChange={setHideDone.toggle}>
-        Hide completed tasks
-      </Checkbox>
+      <HideCompletedTasksCheckbox
+        hideDone={hideDone}
+        setHideDone={setHideDone}
+      />
       {tasks.map(
         (task: TaskType) =>
           !(hideDone && task.isDone) && (
