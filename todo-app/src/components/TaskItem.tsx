@@ -16,7 +16,7 @@ type Props = {
   deleteTask: (createdAt: number) => void;
 };
 
-const Task = ({ task, updateTask, deleteTask }: Props) => {
+const TaskItem = ({ task, updateTask, deleteTask }: Props) => {
   const EditableControls = () => {
     const {
       isEditing,
@@ -102,4 +102,4 @@ const Task = ({ task, updateTask, deleteTask }: Props) => {
   );
 };
 
-export default Task;
+export default TaskItem;

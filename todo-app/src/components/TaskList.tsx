@@ -1,5 +1,5 @@
 import { TaskType } from "../types/TaskType";
-import Task from "./Task";
+import TaskItem from "./TaskItem";
 
 type Props = {
   tasks: TaskType[];
@@ -14,7 +14,7 @@ const TaskList = ({ tasks, hideDone, updateTask, deleteTask }: Props) => {
       {tasks.map(
         (task: TaskType) =>
           !(hideDone && task.isDone) && (
-            <Task
+            <TaskItem
               key={task.createdAt}
               task={task}
               updateTask={updateTask}
