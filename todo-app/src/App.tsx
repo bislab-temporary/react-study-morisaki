@@ -3,7 +3,7 @@ import { Container } from "@chakra-ui/layout";
 import { useState } from "react";
 import HideCompletedTasksCheckbox from "./components/HideCompletedTasksCheckbox";
 import InputNewTaskField from "./components/InputNewTaskField";
-import Task from "./components/Task";
+import TaskList from "./components/TaskList";
 import { TaskType } from "./types/TaskType";
 
 const App = () => {
@@ -48,17 +48,12 @@ const App = () => {
         hideDone={hideDone}
         setHideDone={setHideDone}
       />
-      {tasks.map(
-        (task: TaskType) =>
-          !(hideDone && task.isDone) && (
-            <Task
-              key={task.createdAt}
-              task={task}
-              updateTask={updateTask}
-              deleteTask={deleteTask}
-            />
-          )
-      )}
+      <TaskList
+        tasks={tasks}
+        hideDone={hideDone}
+        updateTask={updateTask}
+        deleteTask={deleteTask}
+      />
       <InputNewTaskField tasks={tasks} setTasks={setTasks} />
     </Container>
   );
