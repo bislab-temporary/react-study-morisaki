@@ -1,7 +1,7 @@
 import { AddIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { Dispatch, SetStateAction, useState } from "react";
-import { TaskType } from "./App";
+import { TaskType } from "./types/TaskType";
 
 type Props = {
   tasks: TaskType[];

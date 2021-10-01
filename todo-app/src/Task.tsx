@@ -7,7 +7,7 @@ import {
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Flex, Spacer } from "@chakra-ui/layout";
 import { Checkbox } from "@chakra-ui/react";
-import { TaskType } from "./App";
+import { TaskType } from "./types/TaskType";
 import CustomEditable from "./CustomEditable";
 
 type Props = {

@@ -4,12 +4,7 @@ import { Container } from "@chakra-ui/layout";
 import { useState } from "react";
 import InputNewTaskField from "./InputNewTaskField";
 import Task from "./Task";
-
-export type TaskType = {
-  createdAt: number;
-  isDone: boolean;
-  text: string;
-};
+import { TaskType } from "./types/TaskType";
 
 const App = () => {
   const [hideDone, setHideDone] = useBoolean(false);
