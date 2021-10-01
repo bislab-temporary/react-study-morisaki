@@ -2,8 +2,8 @@ import { useBoolean } from "@chakra-ui/hooks";
 import { Container } from "@chakra-ui/layout";
 import { useState } from "react";
 import HideCompletedTasksCheckbox from "./components/HideCompletedTasksCheckbox";
-import TaskInput from "./components/TaskInput";
 import TaskList from "./components/TaskList";
+import TaskInput from "./components/TaskInput";
 import { TaskType } from "./types/TaskType";
 
 const App = () => {
