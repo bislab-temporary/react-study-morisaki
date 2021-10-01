@@ -8,7 +8,7 @@ type Props = {
   setTasks: Dispatch<SetStateAction<TaskType[]>>;
 };
 
-const InputNewTaskField = ({ tasks, setTasks }: Props) => {
+const TaskInput = ({ tasks, setTasks }: Props) => {
   const [text, setText] = useState<string>("");
 
   const validInputText = (): boolean => {
@@ -56,4 +56,4 @@ const InputNewTaskField = ({ tasks, setTasks }: Props) => {
   );
 };
 
-export default InputNewTaskField;
+export default TaskInput;

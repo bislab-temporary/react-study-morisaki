@@ -2,7 +2,7 @@ import { useBoolean } from "@chakra-ui/hooks";
 import { Container } from "@chakra-ui/layout";
 import { useState } from "react";
 import HideCompletedTasksCheckbox from "./components/HideCompletedTasksCheckbox";
-import InputNewTaskField from "./components/InputNewTaskField";
+import TaskInput from "./components/TaskInput";
 import TaskList from "./components/TaskList";
 import { TaskType } from "./types/TaskType";
 
@@ -54,7 +54,7 @@ const App = () => {
         updateTask={updateTask}
         deleteTask={deleteTask}
       />
-      <InputNewTaskField tasks={tasks} setTasks={setTasks} />
+      <TaskInput tasks={tasks} setTasks={setTasks} />
     </Container>
   );
 };
