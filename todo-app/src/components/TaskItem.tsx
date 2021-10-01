@@ -12,7 +12,7 @@ import TaskItemCustomEditable from "./TaskItemCustomEditable";
 
 type Props = {
   task: TaskType;
-  updateTask: (createdAt: number, isDone: boolean, newText: string) => void;
+  updateTask: (createdAt: number, isDone: boolean, text: string) => void;
   deleteTask: (createdAt: number) => void;
 };
 

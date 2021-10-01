@@ -4,7 +4,7 @@ import TaskItem from "./TaskItem";
 type Props = {
   tasks: TaskType[];
   hideDone: boolean;
-  updateTask: (createdAt: number, isDone: boolean, newText: string) => void;
+  updateTask: (createdAt: number, isDone: boolean, text: string) => void;
   deleteTask: (createdAt: number) => void;
 };
 

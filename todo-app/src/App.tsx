@@ -34,8 +34,8 @@ const App = () => {
     setTasks(newTasks);
   };
 
-  const updateTask = (createdAt: number, isDone: boolean, newText: string) => {
-    const newTask = { createdAt: createdAt, isDone: isDone, text: newText };
+  const updateTask = (createdAt: number, isDone: boolean, text: string) => {
+    const newTask = { createdAt: createdAt, isDone: isDone, text: text };
     const newTasks = tasks.map((task: TaskType) =>
       task.createdAt === createdAt ? newTask : task
     );
