@@ -23,6 +23,7 @@ const TaskInput = ({ addTask }: Props) => {
       resetField();
     }
   };
+
   return (
     <InputGroup m={1}>
       <Input
