@@ -27,6 +27,13 @@ const App = () => {
     },
   ]);
 
+  const addTask = (text: string) => {
+    const now = Date.now();
+    const newTask = { createdAt: now, isDone: false, text: text };
+    const newTasks = [...tasks, newTask];
+    setTasks(newTasks);
+  };
+
   const updateTask = (createdAt: number, isDone: boolean, newText: string) => {
     const newTask = { createdAt: createdAt, isDone: isDone, text: newText };
     const newTasks = tasks.map((task: TaskType) =>
@@ -54,7 +61,7 @@ const App = () => {
         updateTask={updateTask}
         deleteTask={deleteTask}
       />
-      <TaskInput tasks={tasks} setTasks={setTasks} />
+      <TaskInput addTask={addTask} />
     </Container>
   );
 };
