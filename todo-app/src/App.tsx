@@ -1,10 +1,9 @@
-import { Container, Text } from "@chakra-ui/layout";
-import { Center } from "@chakra-ui/layout";
+import { Center, Container, Text } from "@chakra-ui/layout";
 
 const App = () => {
-  interface Task {
+  type Task = {
     text: string;
-  }
+  };
 
   const tasks: Task[] = [
     { text: "Task1" },
