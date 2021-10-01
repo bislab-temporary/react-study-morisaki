@@ -7,11 +7,11 @@ import {
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Flex, Spacer } from "@chakra-ui/layout";
 import { Checkbox } from "@chakra-ui/react";
-import { iTask } from "./App";
+import { TaskType } from "./App";
 import CustomEditable from "./CustomEditable";
 
 type Props = {
-  task: iTask;
+  task: TaskType;
   updateTask: (create: number, isDone: boolean, newText: string) => void;
   deleteTask: (create: number) => void;
 };
