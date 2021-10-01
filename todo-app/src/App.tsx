@@ -6,7 +6,7 @@ import InputNewTaskField from "./InputNewTaskField";
 import Task from "./Task";
 
 export type TaskType = {
-  create: number;
+  createdAt: number;
   isDone: boolean;
   text: string;
 };
@@ -16,32 +16,34 @@ const App = () => {
 
   const [tasks, setTasks] = useState<TaskType[]>([
     {
-      create: new Date(2021, 9, 30, 1, 0, 0).getTime(),
+      createdAt: new Date(2021, 9, 30, 1, 0, 0).getTime(),
       isDone: false,
       text: "Task1",
     },
     {
-      create: new Date(2021, 9, 30, 2, 0, 0).getTime(),
+      createdAt: new Date(2021, 9, 30, 2, 0, 0).getTime(),
       isDone: false,
       text: "Task2",
     },
     {
-      create: new Date(2021, 9, 30, 3, 0, 0).getTime(),
+      createdAt: new Date(2021, 9, 30, 3, 0, 0).getTime(),
       isDone: false,
       text: "Task3",
     },
   ]);
 
-  const updateTask = (create: number, isDone: boolean, newText: string) => {
-    const newTask = { create: create, isDone: isDone, text: newText };
+  const updateTask = (createdAt: number, isDone: boolean, newText: string) => {
+    const newTask = { createdAt: createdAt, isDone: isDone, text: newText };
     const newTasks = tasks.map((task: TaskType) =>
-      task.create === create ? newTask : task
+      task.createdAt === createdAt ? newTask : task
     );
     setTasks(newTasks);
   };
 
-  const deleteTask = (create: number) => {
-    const newTasks = tasks.filter((task: TaskType) => task.create !== create);
+  const deleteTask = (createdAt: number) => {
+    const newTasks = tasks.filter(
+      (task: TaskType) => task.createdAt !== createdAt
+    );
     setTasks(newTasks);
   };
 
@@ -54,7 +56,7 @@ const App = () => {
         (task: TaskType) =>
           !(hideDone && task.isDone) && (
             <Task
-              key={task.create}
+              key={task.createdAt}
               task={task}
               updateTask={updateTask}
               deleteTask={deleteTask}

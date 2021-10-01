@@ -12,8 +12,8 @@ import CustomEditable from "./CustomEditable";
 
 type Props = {
   task: TaskType;
-  updateTask: (create: number, isDone: boolean, newText: string) => void;
-  deleteTask: (create: number) => void;
+  updateTask: (createdAt: number, isDone: boolean, newText: string) => void;
+  deleteTask: (createdAt: number) => void;
 };
 
 const Task = ({ task, updateTask, deleteTask }: Props) => {
@@ -55,15 +55,15 @@ const Task = ({ task, updateTask, deleteTask }: Props) => {
   };
 
   const onSubmit = (newText: string) => {
-    updateTask(task.create, task.isDone, newText);
+    updateTask(task.createdAt, task.isDone, newText);
   };
 
   const toggleDone = () => {
-    updateTask(task.create, !task.isDone, task.text);
+    updateTask(task.createdAt, !task.isDone, task.text);
   };
 
   const onClickDeleteButton = () => {
-    deleteTask(task.create);
+    deleteTask(task.createdAt);
   };
 
   return (
