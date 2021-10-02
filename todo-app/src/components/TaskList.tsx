@@ -37,7 +37,7 @@ const TaskList = ({
                 draggableId={String(task.createdAt)}
                 index={index}
               >
-                {(provided) =>
+                {(provided, snapshot) =>
                   !(hideDone && task.isDone) ? (
                     <div
                       {...provided.draggableProps}
@@ -46,6 +46,7 @@ const TaskList = ({
                     >
                       <TaskItem
                         task={task}
+                        snapshot={snapshot}
                         updateTask={updateTask}
                         deleteTask={deleteTask}
                       />
