@@ -1,7 +1,7 @@
 import { useBoolean } from "@chakra-ui/hooks";
 import { Container } from "@chakra-ui/layout";
 import { useState } from "react";
-import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
+import { DropResult } from "react-beautiful-dnd";
 import HideCompletedTasksCheckbox from "./components/HideCompletedTasksCheckbox";
 import TaskList from "./components/TaskList";
 import TaskInput from "./components/TaskInput";
@@ -79,25 +79,13 @@ const App = () => {
         hideDone={hideDone}
         setHideDone={setHideDone}
       />
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="droppable">
-          {(provided) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              style={{ width: "100%" }}
-            >
-              <TaskList
-                tasks={tasks}
-                hideDone={hideDone}
-                updateTask={updateTask}
-                deleteTask={deleteTask}
-              />
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <TaskList
+        tasks={tasks}
+        hideDone={hideDone}
+        updateTask={updateTask}
+        deleteTask={deleteTask}
+        onDragEnd={onDragEnd}
+      />
       <TaskInput addTask={addTask} />
     </Container>
   );
