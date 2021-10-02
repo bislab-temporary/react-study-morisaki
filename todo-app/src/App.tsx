@@ -1,6 +1,7 @@
 import { useBoolean } from "@chakra-ui/hooks";
 import { Container } from "@chakra-ui/layout";
 import { useState } from "react";
+import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import HideCompletedTasksCheckbox from "./components/HideCompletedTasksCheckbox";
 import TaskList from "./components/TaskList";
 import TaskInput from "./components/TaskInput";
@@ -49,18 +50,53 @@ const App = () => {
     setTasks(newTasks);
   };
 
+  const reorder = (
+    list: TaskType[],
+    startIndex: number,
+    endIndex: number
+  ): TaskType[] => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    return result;
+  };
+
+  const onDragEnd = (result: DropResult) => {
+    if (!result.destination) {
+      return;
+    }
+    const newTasks = reorder(
+      tasks,
+      result.source.index,
+      result.destination.index
+    );
+    setTasks(newTasks);
+  };
+
   return (
     <Container maxW="xl" centerContent>
       <HideCompletedTasksCheckbox
         hideDone={hideDone}
         setHideDone={setHideDone}
       />
-      <TaskList
-        tasks={tasks}
-        hideDone={hideDone}
-        updateTask={updateTask}
-        deleteTask={deleteTask}
-      />
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="droppable">
+          {(provided) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              <TaskList
+                tasks={tasks}
+                hideDone={hideDone}
+                updateTask={updateTask}
+                deleteTask={deleteTask}
+              />
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
       <TaskInput addTask={addTask} />
     </Container>
   );

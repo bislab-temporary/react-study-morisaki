@@ -1,3 +1,4 @@
+import { Draggable } from "react-beautiful-dnd";
 import { TaskType } from "../types/TaskType";
 import TaskItem from "./TaskItem";
 
@@ -12,14 +13,27 @@ const TaskList = ({ tasks, hideDone, updateTask, deleteTask }: Props) => {
   return (
     <>
       {tasks.map(
-        (task: TaskType) =>
+        (task: TaskType, index) =>
           !(hideDone && task.isDone) && (
-            <TaskItem
+            <Draggable
               key={task.createdAt}
-              task={task}
-              updateTask={updateTask}
-              deleteTask={deleteTask}
-            />
+              draggableId={String(task.createdAt)}
+              index={index}
+            >
+              {(provided) => (
+                <div
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  ref={provided.innerRef}
+                >
+                  <TaskItem
+                    task={task}
+                    updateTask={updateTask}
+                    deleteTask={deleteTask}
+                  />
+                </div>
+              )}
+            </Draggable>
           )
       )}
     </>
