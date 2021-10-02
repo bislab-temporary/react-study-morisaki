@@ -1,14 +1,15 @@
 import { ButtonGroup, IconButton } from "@chakra-ui/button";
 import {
+  Editable,
   EditableInput,
   EditablePreview,
   useEditableControls,
 } from "@chakra-ui/editable";
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { Flex, Spacer } from "@chakra-ui/layout";
+import { Spacer } from "@chakra-ui/layout";
 import { Checkbox } from "@chakra-ui/react";
 import { TaskType } from "../types/TaskType";
-import TaskItemCustomEditable from "./TaskItemCustomEditable";
+import TaskItemCustomFlex from "./TaskItemCustomFlex";
 
 type Props = {
   task: TaskType;
@@ -67,16 +68,15 @@ const TaskItem = ({ task, updateTask, deleteTask }: Props) => {
   };
 
   return (
-    <TaskItemCustomEditable
+    <Editable
       p={3}
       m={1}
       bg="blue.100"
       defaultValue={task.text}
-      isDone={task.isDone}
       isPreviewFocusable={false}
       onSubmit={(nextValue) => onSubmit(nextValue)}
     >
-      <Flex>
+      <TaskItemCustomFlex isDone={task.isDone}>
         <Checkbox
           mr={3}
           size="lg"
@@ -96,8 +96,8 @@ const TaskItem = ({ task, updateTask, deleteTask }: Props) => {
           color="red.500"
           onClick={onClickDeleteButton}
         />
-      </Flex>
-    </TaskItemCustomEditable>
+      </TaskItemCustomFlex>
+    </Editable>
   );
 };
 
