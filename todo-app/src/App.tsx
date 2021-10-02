@@ -1,15 +1,10 @@
-import { Checkbox } from "@chakra-ui/checkbox";
 import { useBoolean } from "@chakra-ui/hooks";
 import { Container } from "@chakra-ui/layout";
 import { useState } from "react";
-import InputNewTaskField from "./InputNewTaskField";
-import Task from "./Task";
-
-export type TaskType = {
-  createdAt: number;
-  isDone: boolean;
-  text: string;
-};
+import HideCompletedTasksCheckbox from "./components/HideCompletedTasksCheckbox";
+import TaskList from "./components/TaskList";
+import TaskInput from "./components/TaskInput";
+import { TaskType } from "./types/TaskType";
 
 const App = () => {
   const [hideDone, setHideDone] = useBoolean(false);
@@ -32,8 +27,15 @@ const App = () => {
     },
   ]);
 
-  const updateTask = (createdAt: number, isDone: boolean, newText: string) => {
-    const newTask = { createdAt: createdAt, isDone: isDone, text: newText };
+  const addTask = (text: string) => {
+    const now = Date.now();
+    const newTask = { createdAt: now, isDone: false, text: text };
+    const newTasks = [...tasks, newTask];
+    setTasks(newTasks);
+  };
+
+  const updateTask = (createdAt: number, isDone: boolean, text: string) => {
+    const newTask = { createdAt: createdAt, isDone: isDone, text: text };
     const newTasks = tasks.map((task: TaskType) =>
       task.createdAt === createdAt ? newTask : task
     );
@@ -49,21 +51,17 @@ const App = () => {
 
   return (
     <Container maxW="xl" centerContent>
-      <Checkbox mr="auto" isChecked={hideDone} onChange={setHideDone.toggle}>
-        Hide completed tasks
-      </Checkbox>
-      {tasks.map(
-        (task: TaskType) =>
-          !(hideDone && task.isDone) && (
-            <Task
-              key={task.createdAt}
-              task={task}
-              updateTask={updateTask}
-              deleteTask={deleteTask}
-            />
-          )
-      )}
-      <InputNewTaskField tasks={tasks} setTasks={setTasks} />
+      <HideCompletedTasksCheckbox
+        hideDone={hideDone}
+        setHideDone={setHideDone}
+      />
+      <TaskList
+        tasks={tasks}
+        hideDone={hideDone}
+        updateTask={updateTask}
+        deleteTask={deleteTask}
+      />
+      <TaskInput addTask={addTask} />
     </Container>
   );
 };

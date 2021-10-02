@@ -7,16 +7,16 @@ import {
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Flex, Spacer } from "@chakra-ui/layout";
 import { Checkbox } from "@chakra-ui/react";
-import { TaskType } from "./App";
-import CustomEditable from "./CustomEditable";
+import { TaskType } from "../types/TaskType";
+import TaskItemCustomEditable from "./TaskItemCustomEditable";
 
 type Props = {
   task: TaskType;
-  updateTask: (createdAt: number, isDone: boolean, newText: string) => void;
+  updateTask: (createdAt: number, isDone: boolean, text: string) => void;
   deleteTask: (createdAt: number) => void;
 };
 
-const Task = ({ task, updateTask, deleteTask }: Props) => {
+const TaskItem = ({ task, updateTask, deleteTask }: Props) => {
   const EditableControls = () => {
     const {
       isEditing,
@@ -67,7 +67,7 @@ const Task = ({ task, updateTask, deleteTask }: Props) => {
   };
 
   return (
-    <CustomEditable
+    <TaskItemCustomEditable
       p={3}
       m={1}
       w="100%"
@@ -98,8 +98,8 @@ const Task = ({ task, updateTask, deleteTask }: Props) => {
           onClick={onClickDeleteButton}
         />
       </Flex>
-    </CustomEditable>
+    </TaskItemCustomEditable>
   );
 };
 
-export default Task;
+export default TaskItem;

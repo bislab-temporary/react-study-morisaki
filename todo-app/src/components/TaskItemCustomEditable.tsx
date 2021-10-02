@@ -6,7 +6,7 @@ type CustomProps = {
 
 type Props = EditableProps & CustomProps;
 
-const CustomEditable = ({ isDone, ...editableProps }: Props) => {
+const TaskItemCustomEditable = ({ isDone, ...editableProps }: Props) => {
   return isDone ? (
     <Editable color="gray" as="s" {...editableProps} />
   ) : (
@@ -14,4 +14,4 @@ const CustomEditable = ({ isDone, ...editableProps }: Props) => {
   );
 };
 
-export default CustomEditable;
+export default TaskItemCustomEditable;

@@ -1,25 +1,16 @@
 import { AddIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
-import { Dispatch, SetStateAction, useState } from "react";
-import { TaskType } from "./App";
+import { useState } from "react";
 
 type Props = {
-  tasks: TaskType[];
-  setTasks: Dispatch<SetStateAction<TaskType[]>>;
+  addTask: (text: string) => void;
 };
 
-const InputNewTaskField = ({ tasks, setTasks }: Props) => {
+const TaskInput = ({ addTask }: Props) => {
   const [text, setText] = useState<string>("");
 
   const validInputText = (): boolean => {
     return text !== "";
-  };
-
-  const addTask = (text: string) => {
-    const now = Date.now();
-    const newTask = { createdAt: now, isDone: false, text: text };
-    const newTasks = [...tasks, newTask];
-    setTasks(newTasks);
   };
 
   const resetField = () => {
@@ -32,6 +23,7 @@ const InputNewTaskField = ({ tasks, setTasks }: Props) => {
       resetField();
     }
   };
+
   return (
     <InputGroup m={1}>
       <Input
@@ -56,4 +48,4 @@ const InputNewTaskField = ({ tasks, setTasks }: Props) => {
   );
 };
 
-export default InputNewTaskField;
+export default TaskInput;
