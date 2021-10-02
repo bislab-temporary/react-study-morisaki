@@ -85,6 +85,7 @@ const App = () => {
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
+              style={{ width: "100%" }}
             >
               <TaskList
                 tasks={tasks}

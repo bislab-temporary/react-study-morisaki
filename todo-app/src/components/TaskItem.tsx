@@ -70,7 +70,6 @@ const TaskItem = ({ task, updateTask, deleteTask }: Props) => {
     <TaskItemCustomEditable
       p={3}
       m={1}
-      w="100%"
       bg="blue.100"
       defaultValue={task.text}
       isDone={task.isDone}
