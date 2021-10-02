@@ -12,30 +12,35 @@ type Props = {
 const TaskList = ({ tasks, hideDone, updateTask, deleteTask }: Props) => {
   return (
     <>
-      {tasks.map(
-        (task: TaskType, index) =>
-          !(hideDone && task.isDone) && (
-            <Draggable
-              key={task.createdAt}
-              draggableId={String(task.createdAt)}
-              index={index}
-            >
-              {(provided) => (
-                <div
-                  {...provided.draggableProps}
-                  {...provided.dragHandleProps}
-                  ref={provided.innerRef}
-                >
-                  <TaskItem
-                    task={task}
-                    updateTask={updateTask}
-                    deleteTask={deleteTask}
-                  />
-                </div>
-              )}
-            </Draggable>
-          )
-      )}
+      {tasks.map((task: TaskType, index) => (
+        <Draggable
+          key={task.createdAt}
+          draggableId={String(task.createdAt)}
+          index={index}
+        >
+          {(provided) =>
+            !(hideDone && task.isDone) ? (
+              <div
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                ref={provided.innerRef}
+              >
+                <TaskItem
+                  task={task}
+                  updateTask={updateTask}
+                  deleteTask={deleteTask}
+                />
+              </div>
+            ) : (
+              <div
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                ref={provided.innerRef}
+              ></div>
+            )
+          }
+        </Draggable>
+      ))}
     </>
   );
 };
