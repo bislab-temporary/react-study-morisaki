@@ -1,22 +1,25 @@
 import { ButtonGroup, IconButton } from "@chakra-ui/button";
 import {
+  Editable,
   EditableInput,
   EditablePreview,
   useEditableControls,
 } from "@chakra-ui/editable";
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { Flex, Spacer } from "@chakra-ui/layout";
+import { Spacer } from "@chakra-ui/layout";
 import { Checkbox } from "@chakra-ui/react";
+import { DraggableStateSnapshot } from "react-beautiful-dnd";
 import { TaskType } from "../types/TaskType";
-import TaskItemCustomEditable from "./TaskItemCustomEditable";
+import TaskItemCustomFlex from "./TaskItemCustomFlex";
 
 type Props = {
   task: TaskType;
+  snapshot: DraggableStateSnapshot;
   updateTask: (createdAt: number, isDone: boolean, text: string) => void;
   deleteTask: (createdAt: number) => void;
 };
 
-const TaskItem = ({ task, updateTask, deleteTask }: Props) => {
+const TaskItem = ({ task, snapshot, updateTask, deleteTask }: Props) => {
   const EditableControls = () => {
     const {
       isEditing,
@@ -67,17 +70,18 @@ const TaskItem = ({ task, updateTask, deleteTask }: Props) => {
   };
 
   return (
-    <TaskItemCustomEditable
-      p={3}
-      m={1}
-      w="100%"
-      bg="blue.100"
+    <Editable
       defaultValue={task.text}
-      isDone={task.isDone}
       isPreviewFocusable={false}
-      onSubmit={(nextValue) => onSubmit(nextValue)}
+      onSubmit={(nextValue: string) => onSubmit(nextValue)}
     >
-      <Flex>
+      <TaskItemCustomFlex
+        p={3}
+        m={1}
+        bg="blue.100"
+        isDone={task.isDone}
+        isDraggingOver={snapshot.isDragging}
+      >
         <Checkbox
           mr={3}
           size="lg"
@@ -97,8 +101,8 @@ const TaskItem = ({ task, updateTask, deleteTask }: Props) => {
           color="red.500"
           onClick={onClickDeleteButton}
         />
-      </Flex>
-    </TaskItemCustomEditable>
+      </TaskItemCustomFlex>
+    </Editable>
   );
 };
 

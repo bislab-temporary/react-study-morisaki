@@ -1,6 +1,7 @@
 import { useBoolean } from "@chakra-ui/hooks";
 import { Container } from "@chakra-ui/layout";
 import { useState } from "react";
+import { DropResult } from "react-beautiful-dnd";
 import HideCompletedTasksCheckbox from "./components/HideCompletedTasksCheckbox";
 import TaskList from "./components/TaskList";
 import TaskInput from "./components/TaskInput";
@@ -49,6 +50,29 @@ const App = () => {
     setTasks(newTasks);
   };
 
+  const reorder = (
+    list: TaskType[],
+    startIndex: number,
+    endIndex: number
+  ): TaskType[] => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    return result;
+  };
+
+  const onDragEnd = (result: DropResult) => {
+    if (!result.destination) {
+      return;
+    }
+    const newTasks = reorder(
+      tasks,
+      result.source.index,
+      result.destination.index
+    );
+    setTasks(newTasks);
+  };
+
   return (
     <Container maxW="xl" centerContent>
       <HideCompletedTasksCheckbox
@@ -60,6 +84,7 @@ const App = () => {
         hideDone={hideDone}
         updateTask={updateTask}
         deleteTask={deleteTask}
+        onDragEnd={onDragEnd}
       />
       <TaskInput addTask={addTask} />
     </Container>
