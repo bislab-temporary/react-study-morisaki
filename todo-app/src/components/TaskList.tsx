@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/layout";
 import {
   DragDropContext,
   Draggable,
@@ -26,11 +27,7 @@ const TaskList = ({
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
         {(provided) => (
-          <div
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            style={{ width: "100%" }}
-          >
+          <Box {...provided.droppableProps} ref={provided.innerRef} w="full">
             {tasks.map((task: TaskType, index) => (
               <Draggable
                 key={task.createdAt}
@@ -39,7 +36,7 @@ const TaskList = ({
               >
                 {(provided, snapshot) =>
                   !(hideDone && task.isDone) ? (
-                    <div
+                    <Box
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       ref={provided.innerRef}
@@ -50,7 +47,7 @@ const TaskList = ({
                         updateTask={updateTask}
                         deleteTask={deleteTask}
                       />
-                    </div>
+                    </Box>
                   ) : (
                     <div
                       {...provided.draggableProps}
@@ -62,7 +59,7 @@ const TaskList = ({
               </Draggable>
             ))}
             {provided.placeholder}
-          </div>
+          </Box>
         )}
       </Droppable>
     </DragDropContext>
