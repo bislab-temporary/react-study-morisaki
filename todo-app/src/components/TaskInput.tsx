@@ -1,6 +1,6 @@
 import { AddIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
-import { useState } from "react";
+import { ChangeEvent, KeyboardEvent, useState } from "react";
 
 type Props = {
   addTask: (text: string) => void;
@@ -30,10 +30,10 @@ const TaskInput = ({ addTask }: Props) => {
         borderRadius="0"
         placeholder="Input new task"
         value={text}
-        onChange={(e) => {
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
           setText(e.target.value);
         }}
-        onKeyPress={(e) => {
+        onKeyPress={(e: KeyboardEvent<HTMLInputElement>) => {
           if (e.key === "Enter") {
             onSubmitTask();
           }

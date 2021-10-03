@@ -73,7 +73,7 @@ const TaskItem = ({ task, snapshot, updateTask, deleteTask }: Props) => {
     <Editable
       defaultValue={task.text}
       isPreviewFocusable={false}
-      onSubmit={(nextValue) => onSubmit(nextValue)}
+      onSubmit={(nextValue: string) => onSubmit(nextValue)}
     >
       <TaskItemCustomFlex
         p={3}

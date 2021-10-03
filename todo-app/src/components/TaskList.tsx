@@ -2,7 +2,10 @@ import { Box } from "@chakra-ui/layout";
 import {
   DragDropContext,
   Draggable,
+  DraggableProvided,
+  DraggableStateSnapshot,
   Droppable,
+  DroppableProvided,
   DropResult,
 } from "react-beautiful-dnd";
 import { TaskType } from "../types/TaskType";
@@ -26,15 +29,18 @@ const TaskList = ({
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
-        {(provided) => (
+        {(provided: DroppableProvided) => (
           <Box {...provided.droppableProps} ref={provided.innerRef} w="full">
-            {tasks.map((task: TaskType, index) => (
+            {tasks.map((task: TaskType, index: number) => (
               <Draggable
                 key={task.createdAt}
                 draggableId={String(task.createdAt)}
                 index={index}
               >
-                {(provided, snapshot) =>
+                {(
+                  provided: DraggableProvided,
+                  snapshot: DraggableStateSnapshot
+                ) =>
                   !(hideDone && task.isDone) ? (
                     <Box
                       {...provided.draggableProps}
