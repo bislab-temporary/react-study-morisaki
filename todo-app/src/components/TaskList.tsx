@@ -1,4 +1,5 @@
 import { Box } from "@chakra-ui/layout";
+import { useLiveQuery } from "dexie-react-hooks";
 import {
   DragDropContext,
   Draggable,
@@ -8,24 +9,44 @@ import {
   DroppableProvided,
   DropResult,
 } from "react-beautiful-dnd";
-import { TaskType } from "../types/TaskType";
+import { db, setDatabase } from "../models/db";
+import { TaskType } from "../models/TaskType";
 import TaskItem from "./TaskItem/TaskItem";
 
 type Props = {
-  tasks: TaskType[];
   hideDone: boolean;
-  updateTask: (createdAt: number, isDone: boolean, text: string) => void;
-  deleteTask: (createdAt: number) => void;
-  onDragEnd: (result: DropResult) => void;
 };
 
-const TaskList = ({
-  tasks,
-  hideDone,
-  updateTask,
-  deleteTask,
-  onDragEnd,
-}: Props) => {
+const TaskList = ({ hideDone }: Props) => {
+  const tasks = useLiveQuery(() =>
+    db.tasksTable.orderBy("createdAt").toArray()
+  );
+
+  if (!tasks) return null;
+
+  const reorder = (
+    list: TaskType[],
+    startIndex: number,
+    endIndex: number
+  ): TaskType[] => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    return result;
+  };
+
+  const onDragEnd = (result: DropResult) => {
+    if (!result.destination) {
+      return;
+    }
+    const newTasks = reorder(
+      tasks,
+      result.source.index,
+      result.destination.index
+    );
+    setDatabase(newTasks);
+  };
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
@@ -47,12 +68,7 @@ const TaskList = ({
                       {...provided.dragHandleProps}
                       ref={provided.innerRef}
                     >
-                      <TaskItem
-                        task={task}
-                        snapshot={snapshot}
-                        updateTask={updateTask}
-                        deleteTask={deleteTask}
-                      />
+                      <TaskItem task={task} snapshot={snapshot} />
                     </Box>
                   ) : (
                     <div

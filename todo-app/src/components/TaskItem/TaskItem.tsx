@@ -8,18 +8,17 @@ import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Spacer } from "@chakra-ui/layout";
 import { Checkbox } from "@chakra-ui/react";
 import { DraggableStateSnapshot } from "react-beautiful-dnd";
-import { TaskType } from "../../types/TaskType";
+import { db } from "../../models/db";
+import { TaskType } from "../../models/TaskType";
 import TaskItemCustomEditablePreview from "./TaskItemCustomEditablePreview";
 import TaskItemCustomFlex from "./TaskItemCustomFlex";
 
 type Props = {
   task: TaskType;
   snapshot: DraggableStateSnapshot;
-  updateTask: (createdAt: number, isDone: boolean, text: string) => void;
-  deleteTask: (createdAt: number) => void;
 };
 
-const TaskItem = ({ task, snapshot, updateTask, deleteTask }: Props) => {
+const TaskItem = ({ task, snapshot }: Props) => {
   const EditableControls = () => {
     const {
       isEditing,
@@ -58,15 +57,15 @@ const TaskItem = ({ task, snapshot, updateTask, deleteTask }: Props) => {
   };
 
   const onSubmit = (newText: string) => {
-    updateTask(task.createdAt, task.isDone, newText);
+    db.tasksTable.update(task, { text: newText });
   };
 
   const toggleDone = () => {
-    updateTask(task.createdAt, !task.isDone, task.text);
+    db.tasksTable.update(task, { isDone: !task.isDone });
   };
 
   const onClickDeleteButton = () => {
-    deleteTask(task.createdAt);
+    db.tasksTable.delete(task.createdAt);
   };
 
   return (
