@@ -2,14 +2,14 @@ import { ButtonGroup, IconButton } from "@chakra-ui/button";
 import {
   Editable,
   EditableInput,
-  EditablePreview,
   useEditableControls,
 } from "@chakra-ui/editable";
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Spacer } from "@chakra-ui/layout";
 import { Checkbox } from "@chakra-ui/react";
 import { DraggableStateSnapshot } from "react-beautiful-dnd";
-import { TaskType } from "../types/TaskType";
+import { TaskType } from "../../types/TaskType";
+import TaskItemCustomEditablePreview from "./TaskItemCustomEditablePreview";
 import TaskItemCustomFlex from "./TaskItemCustomFlex";
 
 type Props = {
@@ -79,7 +79,6 @@ const TaskItem = ({ task, snapshot, updateTask, deleteTask }: Props) => {
         p={3}
         m={1}
         bg="blue.100"
-        isDone={task.isDone}
         isDraggingOver={snapshot.isDragging}
       >
         <Checkbox
@@ -89,7 +88,7 @@ const TaskItem = ({ task, snapshot, updateTask, deleteTask }: Props) => {
           isChecked={task.isDone}
           onChange={toggleDone}
         ></Checkbox>
-        <EditablePreview isTruncated />
+        <TaskItemCustomEditablePreview isTruncated isDone={task.isDone} />
         <EditableInput />
         <Spacer />
         <EditableControls />

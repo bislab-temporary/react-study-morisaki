@@ -9,7 +9,7 @@ import {
   DropResult,
 } from "react-beautiful-dnd";
 import { TaskType } from "../types/TaskType";
-import TaskItem from "./TaskItem";
+import TaskItem from "./TaskItem/TaskItem";
 
 type Props = {
   tasks: TaskType[];
