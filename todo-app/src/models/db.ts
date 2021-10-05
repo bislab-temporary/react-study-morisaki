@@ -22,7 +22,6 @@ export class TasksDB extends Dexie {
       (order: OrderType): TaskType =>
         tasks.find((task: TaskType) => task.createdAt === order.createdAt)!
     );
-    console.table(orderedTasks);
     return orderedTasks;
   };
 
