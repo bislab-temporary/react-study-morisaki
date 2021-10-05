@@ -8,6 +8,7 @@ import TaskList from "./components/TaskList";
 import TaskInput from "./components/TaskInput";
 import { db } from "./models/db";
 import { TaskType } from "./models/TaskType";
+import { use100vh } from "react-div-100vh";
 
 const App = () => {
   const [hideDone, setHideDone] = useBoolean(false);
@@ -81,7 +82,7 @@ const App = () => {
   };
 
   return (
-    <Flex maxW="xl" maxH="100vh" direction="column" ml="auto" mr="auto">
+    <Flex maxW="xl" maxH={use100vh()!} direction="column" ml="auto" mr="auto">
       <Header />
       <HideCompletedTasksCheckbox
         hideDone={hideDone}
