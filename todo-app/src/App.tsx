@@ -1,7 +1,8 @@
 import { useBoolean } from "@chakra-ui/hooks";
-import { Container } from "@chakra-ui/layout";
+import { Flex } from "@chakra-ui/layout";
 import { useEffect, useState } from "react";
 import { DropResult } from "react-beautiful-dnd";
+import Header from "./components/Header";
 import HideCompletedTasksCheckbox from "./components/HideCompletedTasksCheckbox";
 import TaskList from "./components/TaskList";
 import TaskInput from "./components/TaskInput";
@@ -80,7 +81,8 @@ const App = () => {
   };
 
   return (
-    <Container maxW="xl" centerContent>
+    <Flex maxW="xl" maxH="100vh" direction="column" ml="auto" mr="auto">
+      <Header />
       <HideCompletedTasksCheckbox
         hideDone={hideDone}
         setHideDone={setHideDone}
@@ -93,7 +95,7 @@ const App = () => {
         onDragEnd={onDragEnd}
       />
       <TaskInput addTask={addTask} />
-    </Container>
+    </Flex>
   );
 };
 
