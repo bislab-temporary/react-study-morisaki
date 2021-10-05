@@ -57,15 +57,16 @@ const TaskItem = ({ task, snapshot }: Props) => {
   };
 
   const onSubmit = (newText: string) => {
-    db.tasksTable.update(task, { text: newText });
+    db.tasksTable.update(task.createdAt, { text: newText });
   };
 
   const toggleDone = () => {
-    db.tasksTable.update(task, { isDone: !task.isDone });
+    db.tasksTable.update(task.createdAt, { isDone: !task.isDone });
   };
 
   const onClickDeleteButton = () => {
-    db.tasksTable.delete(task.createdAt);
+    db.tasksTable.where("createdAt").anyOf(task.createdAt).delete();
+    db.ordersTable.where("createdAt").anyOf(task.createdAt).delete();
   };
 
   return (

@@ -9,7 +9,9 @@ import {
   DroppableProvided,
   DropResult,
 } from "react-beautiful-dnd";
-import { db, setDatabase } from "../models/db";
+import { getOrderedTasks, updateOrders } from "../models/db";
+import { OrderedTaskType } from "../models/OrderedTaskType";
+import { OrderType } from "../models/OrderType";
 import { TaskType } from "../models/TaskType";
 import TaskItem from "./TaskItem/TaskItem";
 
@@ -18,17 +20,15 @@ type Props = {
 };
 
 const TaskList = ({ hideDone }: Props) => {
-  const tasks = useLiveQuery(() =>
-    db.tasksTable.orderBy("createdAt").toArray()
-  );
+  const tasks = useLiveQuery<OrderedTaskType[]>(() => getOrderedTasks());
 
   if (!tasks) return null;
 
   const reorder = (
-    list: TaskType[],
+    list: OrderType[],
     startIndex: number,
     endIndex: number
-  ): TaskType[] => {
+  ): OrderType[] => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -39,12 +39,17 @@ const TaskList = ({ hideDone }: Props) => {
     if (!result.destination) {
       return;
     }
-    const newTasks = reorder(
-      tasks,
+    const createdAtList = tasks.map(
+      (task: OrderedTaskType): OrderType => ({
+        createdAt: task.createdAt,
+      })
+    );
+    const newCreatedAtList = reorder(
+      createdAtList,
       result.source.index,
       result.destination.index
     );
-    setDatabase(newTasks);
+    updateOrders(newCreatedAtList);
   };
 
   return (
