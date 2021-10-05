@@ -1,9 +1,12 @@
 import { AddIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
-import { addTask } from "../models/db";
 
-const TaskInput = () => {
+type Props = {
+  addTask: (text: string) => void;
+};
+
+const TaskInput = ({ addTask }: Props) => {
   const [text, setText] = useState<string>("");
 
   const validInputText = (): boolean => {

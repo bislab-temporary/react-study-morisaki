@@ -1,5 +1,4 @@
 import { Box } from "@chakra-ui/layout";
-import { useLiveQuery } from "dexie-react-hooks";
 import {
   DragDropContext,
   Draggable,
@@ -9,49 +8,24 @@ import {
   DroppableProvided,
   DropResult,
 } from "react-beautiful-dnd";
-import { getOrderedTasks, updateOrders } from "../models/db";
-import { OrderedTaskType } from "../models/OrderedTaskType";
-import { OrderType } from "../models/OrderType";
 import { TaskType } from "../models/TaskType";
 import TaskItem from "./TaskItem/TaskItem";
 
 type Props = {
+  tasks: TaskType[];
   hideDone: boolean;
+  updateTask: (createdAt: number, isDone: boolean, text: string) => void;
+  deleteTask: (createdAt: number) => void;
+  onDragEnd: (result: DropResult) => void;
 };
 
-const TaskList = ({ hideDone }: Props) => {
-  const tasks = useLiveQuery<OrderedTaskType[]>(() => getOrderedTasks());
-
-  if (!tasks) return null;
-
-  const reorder = (
-    list: OrderType[],
-    startIndex: number,
-    endIndex: number
-  ): OrderType[] => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-    return result;
-  };
-
-  const onDragEnd = (result: DropResult) => {
-    if (!result.destination) {
-      return;
-    }
-    const createdAtList = tasks.map(
-      (task: OrderedTaskType): OrderType => ({
-        createdAt: task.createdAt,
-      })
-    );
-    const newCreatedAtList = reorder(
-      createdAtList,
-      result.source.index,
-      result.destination.index
-    );
-    updateOrders(newCreatedAtList);
-  };
-
+const TaskList = ({
+  tasks,
+  hideDone,
+  updateTask,
+  deleteTask,
+  onDragEnd,
+}: Props) => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
@@ -73,7 +47,12 @@ const TaskList = ({ hideDone }: Props) => {
                       {...provided.dragHandleProps}
                       ref={provided.innerRef}
                     >
-                      <TaskItem task={task} snapshot={snapshot} />
+                      <TaskItem
+                        task={task}
+                        snapshot={snapshot}
+                        updateTask={updateTask}
+                        deleteTask={deleteTask}
+                      />
                     </Box>
                   ) : (
                     <div
