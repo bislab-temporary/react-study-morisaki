@@ -35,17 +35,22 @@ export const getOrderedTasks = async (): Promise<OrderedTaskType[]> => {
 
 export const addTask = (text: string) => {
   const createdAt = Date.now();
-  db.tasksTable.add({
-    createdAt: createdAt,
-    isDone: false,
-    text: text,
+  db.transaction("rw", db.tasksTable, db.ordersTable, async () => {
+    await db.tasksTable.add({
+      createdAt: createdAt,
+      isDone: false,
+      text: text,
+    });
+    await db.ordersTable.add({ createdAt: createdAt });
   });
-  db.ordersTable.add({ createdAt: createdAt });
 };
 
 export const updateOrders = async (newTasks: OrderType[]) => {
-  db.ordersTable.clear();
-  newTasks.map((newTask: OrderType) =>
-    db.ordersTable.add({ createdAt: newTask.createdAt })
-  );
+  db.transaction("rw", db.tasksTable, db.ordersTable, async () => {
+    await db.ordersTable.clear();
+    newTasks.map(
+      async (newTask: OrderType) =>
+        await db.ordersTable.add({ createdAt: newTask.createdAt })
+    );
+  });
 };
