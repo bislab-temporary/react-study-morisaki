@@ -14,34 +14,41 @@ const App = () => {
   const [tasks, setTasks] = useState<TaskType[]>([]);
 
   useEffect(() => {
-    db.fetchTasks().then((tasks: TaskType[]) => {
-      setTasks(tasks);
-    });
+    db.fetchTasks()
+      .then((tasks: TaskType[]) => {
+        setTasks(tasks);
+      })
+      .catch(() => {
+        setTasks([]);
+      });
   }, []);
 
   const addTask = (text: string) => {
     const now = Date.now();
     const newTask = { createdAt: now, isDone: false, text: text };
-    db.addTask(newTask);
-    const newTasks = [...tasks, newTask];
-    setTasks(newTasks);
+    db.addTask(newTask).then(() => {
+      const newTasks = [...tasks, newTask];
+      setTasks(newTasks);
+    });
   };
 
   const updateTask = (createdAt: number, isDone: boolean, text: string) => {
     const newTask = { createdAt: createdAt, isDone: isDone, text: text };
-    db.updateTask(newTask);
-    const newTasks = tasks.map((task: TaskType) =>
-      task.createdAt === createdAt ? newTask : task
-    );
-    setTasks(newTasks);
+    db.updateTask(newTask).then(() => {
+      const newTasks = tasks.map((task: TaskType) =>
+        task.createdAt === createdAt ? newTask : task
+      );
+      setTasks(newTasks);
+    });
   };
 
   const deleteTask = (createdAt: number) => {
-    db.deleteTask(createdAt);
-    const newTasks = tasks.filter(
-      (task: TaskType) => task.createdAt !== createdAt
-    );
-    setTasks(newTasks);
+    db.deleteTask(createdAt).then(() => {
+      const newTasks = tasks.filter(
+        (task: TaskType) => task.createdAt !== createdAt
+      );
+      setTasks(newTasks);
+    });
   };
 
   const reorder = (
@@ -59,6 +66,7 @@ const App = () => {
     if (!result.destination) {
       return;
     }
+    const tasksBackup = tasks;
     const newTasks = reorder(
       tasks,
       result.source.index,
@@ -66,7 +74,9 @@ const App = () => {
     );
     setTasks(newTasks);
     const newOrders = newTasks.map((task: TaskType): number => task.createdAt);
-    db.updateOrders(newOrders);
+    db.updateOrders(newOrders).catch(() => {
+      setTasks(tasksBackup);
+    });
   };
 
   return (
