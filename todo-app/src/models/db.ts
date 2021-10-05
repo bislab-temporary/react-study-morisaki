@@ -16,8 +16,10 @@ export class TasksDB extends Dexie {
   }
 
   fetchTasks = async (): Promise<TaskType[]> => {
-    const tasks = await db.tasksTable.toArray();
-    const orders = await db.ordersTable.orderBy("order").toArray();
+    const [tasks, orders] = await Promise.all([
+      db.tasksTable.toArray(),
+      db.ordersTable.orderBy("order").toArray(),
+    ]);
     const orderedTasks = orders.map(
       (order: OrderType): TaskType =>
         tasks.find((task: TaskType) => task.createdAt === order.createdAt)!
@@ -25,28 +27,32 @@ export class TasksDB extends Dexie {
     return orderedTasks;
   };
 
-  addTask = (task: TaskType) => {
-    db.transaction("rw", db.tasksTable, db.ordersTable, async () => {
-      await db.tasksTable.add(task);
-      await db.ordersTable.add({ createdAt: task.createdAt });
+  addTask = async (task: TaskType): Promise<void> => {
+    await db.transaction("rw", db.tasksTable, db.ordersTable, async () => {
+      await Promise.all([
+        db.tasksTable.add(task),
+        db.ordersTable.add({ createdAt: task.createdAt }),
+      ]);
     });
   };
 
-  updateTask = (task: TaskType) => {
-    db.tasksTable.update(task.createdAt, task);
+  updateTask = async (task: TaskType): Promise<void> => {
+    await db.tasksTable.update(task.createdAt, task);
   };
 
-  deleteTask = (createdAt: number) => {
-    db.transaction("rw", db.tasksTable, db.ordersTable, async () => {
-      db.tasksTable.delete(createdAt);
-      db.ordersTable.where("createdAt").anyOf(createdAt).delete();
+  deleteTask = async (createdAt: number): Promise<void> => {
+    await db.transaction("rw", db.tasksTable, db.ordersTable, async () => {
+      await Promise.all([
+        db.tasksTable.delete(createdAt),
+        db.ordersTable.where("createdAt").anyOf(createdAt).delete(),
+      ]);
     });
   };
 
-  updateOrders = async (createdAtList: number[]) => {
-    db.transaction("rw", db.ordersTable, async () => {
+  updateOrders = async (createdAtList: number[]): Promise<void> => {
+    await db.transaction("rw", db.ordersTable, async () => {
       await db.ordersTable.clear();
-      createdAtList.map(
+      await createdAtList.map(
         async (createdAt: number) =>
           await db.ordersTable.add({ createdAt: createdAt })
       );
