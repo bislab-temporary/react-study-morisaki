@@ -14,7 +14,7 @@ const App = () => {
   const [tasks, setTasks] = useState<TaskType[]>([]);
 
   useEffect(() => {
-    db.getTasks().then((tasks: TaskType[]) => {
+    db.fetchTasks().then((tasks: TaskType[]) => {
       setTasks(tasks);
     });
   }, []);

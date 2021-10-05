@@ -15,7 +15,7 @@ export class TasksDB extends Dexie {
     });
   }
 
-  getTasks = async (): Promise<TaskType[]> => {
+  fetchTasks = async (): Promise<TaskType[]> => {
     const tasks = await db.tasksTable.toArray();
     const orders = await db.ordersTable.orderBy("order").toArray();
     const orderedTasks = orders.map(
