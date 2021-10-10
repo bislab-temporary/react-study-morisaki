@@ -1,7 +1,7 @@
 import Dexie, { Table } from "dexie";
-import { OrderType } from "./OrderType";
-import { populate } from "./populate";
-import { TaskType } from "./TaskType";
+import { OrderType } from "@/models/OrderType";
+import { populate } from "@/models/populate";
+import { TaskType } from "@/models/TaskType";
 
 export class TasksDB extends Dexie {
   tasksTable!: Table<TaskType, number>;
