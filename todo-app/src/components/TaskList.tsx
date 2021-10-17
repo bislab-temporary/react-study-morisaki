@@ -30,7 +30,12 @@ const TaskList = ({
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
         {(provided: DroppableProvided) => (
-          <Box {...provided.droppableProps} ref={provided.innerRef} w="full">
+          <Box
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            w="full"
+            overflowY="scroll"
+          >
             {tasks.map((task: TaskType, index: number) => (
               <Draggable
                 key={task.createdAt}
