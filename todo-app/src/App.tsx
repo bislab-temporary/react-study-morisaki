@@ -1,53 +1,54 @@
 import { useBoolean } from "@chakra-ui/hooks";
 import { Container } from "@chakra-ui/layout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DropResult } from "react-beautiful-dnd";
 import HideCompletedTasksCheckbox from "./components/HideCompletedTasksCheckbox";
 import TaskList from "./components/TaskList";
 import TaskInput from "./components/TaskInput";
-import { TaskType } from "./types/TaskType";
+import { db } from "./models/db";
+import { TaskType } from "./models/TaskType";
 
 const App = () => {
   const [hideDone, setHideDone] = useBoolean(false);
 
-  const [tasks, setTasks] = useState<TaskType[]>([
-    {
-      createdAt: new Date(2021, 9, 30, 1, 0, 0).getTime(),
-      isDone: false,
-      text: "Task1",
-    },
-    {
-      createdAt: new Date(2021, 9, 30, 2, 0, 0).getTime(),
-      isDone: false,
-      text: "Task2",
-    },
-    {
-      createdAt: new Date(2021, 9, 30, 3, 0, 0).getTime(),
-      isDone: false,
-      text: "Task3",
-    },
-  ]);
+  const [tasks, setTasks] = useState<TaskType[]>([]);
+
+  useEffect(() => {
+    db.fetchTasks()
+      .then((tasks: TaskType[]) => {
+        setTasks(tasks);
+      })
+      .catch(() => {
+        setTasks([]);
+      });
+  }, []);
 
   const addTask = (text: string) => {
     const now = Date.now();
     const newTask = { createdAt: now, isDone: false, text: text };
-    const newTasks = [...tasks, newTask];
-    setTasks(newTasks);
+    db.addTask(newTask).then(() => {
+      const newTasks = [...tasks, newTask];
+      setTasks(newTasks);
+    });
   };
 
   const updateTask = (createdAt: number, isDone: boolean, text: string) => {
     const newTask = { createdAt: createdAt, isDone: isDone, text: text };
-    const newTasks = tasks.map((task: TaskType) =>
-      task.createdAt === createdAt ? newTask : task
-    );
-    setTasks(newTasks);
+    db.updateTask(newTask).then(() => {
+      const newTasks = tasks.map((task: TaskType) =>
+        task.createdAt === createdAt ? newTask : task
+      );
+      setTasks(newTasks);
+    });
   };
 
   const deleteTask = (createdAt: number) => {
-    const newTasks = tasks.filter(
-      (task: TaskType) => task.createdAt !== createdAt
-    );
-    setTasks(newTasks);
+    db.deleteTask(createdAt).then(() => {
+      const newTasks = tasks.filter(
+        (task: TaskType) => task.createdAt !== createdAt
+      );
+      setTasks(newTasks);
+    });
   };
 
   const reorder = (
@@ -65,12 +66,17 @@ const App = () => {
     if (!result.destination) {
       return;
     }
+    const tasksBackup = tasks;
     const newTasks = reorder(
       tasks,
       result.source.index,
       result.destination.index
     );
     setTasks(newTasks);
+    const newOrders = newTasks.map((task: TaskType): number => task.createdAt);
+    db.updateOrders(newOrders).catch(() => {
+      setTasks(tasksBackup);
+    });
   };
 
   return (

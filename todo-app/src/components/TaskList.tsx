@@ -8,7 +8,7 @@ import {
   DroppableProvided,
   DropResult,
 } from "react-beautiful-dnd";
-import { TaskType } from "../types/TaskType";
+import { TaskType } from "../models/TaskType";
 import TaskItem from "./TaskItem/TaskItem";
 
 type Props = {
