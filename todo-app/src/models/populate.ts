@@ -1,4 +1,4 @@
-import { db } from "./db";
+import { db } from "@/models/db";
 
 export const populate = async () => {
   db.transaction("rw", db.tasksTable, db.ordersTable, async () => {

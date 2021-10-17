@@ -8,9 +8,9 @@ import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Spacer } from "@chakra-ui/layout";
 import { Checkbox } from "@chakra-ui/react";
 import { DraggableStateSnapshot } from "react-beautiful-dnd";
-import { TaskType } from "../../models/TaskType";
-import TaskItemCustomEditablePreview from "./TaskItemCustomEditablePreview";
-import TaskItemCustomFlex from "./TaskItemCustomFlex";
+import { TaskType } from "@/models/TaskType";
+import TaskItemCustomEditablePreview from "@/components/TaskItem/TaskItemCustomEditablePreview";
+import TaskItemCustomFlex from "@/components/TaskItem/TaskItemCustomFlex";
 
 type Props = {
   task: TaskType;

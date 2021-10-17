@@ -2,12 +2,12 @@ import { useBoolean } from "@chakra-ui/hooks";
 import { Flex } from "@chakra-ui/layout";
 import { useEffect, useState } from "react";
 import { DropResult } from "react-beautiful-dnd";
-import Header from "./components/Header";
-import HideCompletedTasksCheckbox from "./components/HideCompletedTasksCheckbox";
-import TaskList from "./components/TaskList";
-import TaskInput from "./components/TaskInput";
-import { db } from "./models/db";
-import { TaskType } from "./models/TaskType";
+import Header from "@/components/Header";
+import HideCompletedTasksCheckbox from "@/components/HideCompletedTasksCheckbox";
+import TaskList from "@/components/TaskList";
+import TaskInput from "@/components/TaskInput";
+import { db } from "@/models/db";
+import { TaskType } from "@/models/TaskType";
 import { use100vh } from "react-div-100vh";
 
 const App = () => {
